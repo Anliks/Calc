@@ -16,8 +16,7 @@ public class Validator {
            if (inputString.isEmpty()) {
                throw new EmptyStringChecked("Пустая строка");
            }
-
-           Pattern pattern = Pattern.compile("[^\s.0123456789*+/-]");
+           Pattern pattern = Pattern.compile("[^\\s.0123456789*+/-]");
             Matcher matcher = pattern.matcher(inputString);
 
             if (matcher.find()) {
@@ -25,13 +24,20 @@ public class Validator {
             }
 
             if (inputString.contains("/0")) {
-                throw new ArithmeticException("Выражение содержит деление на ноль!");
+                throw new IllegalArgumentException("Выражение содержит деление на ноль!");
             }
 
             if (inputString.charAt(0) == '-') {
                 throw new NegativeNumberChecked("Выражение содержит отрицательное число!");
             }
+           //проверка на два операнда или более подряд.
+            Pattern pattern1 = Pattern.compile("([^0-9])\\1+");
+            Matcher matcher1 = pattern1.matcher(inputString);
+            if(matcher1.find()) {
+                throw new IncorrectInputCharacterException("Избегайте повторяющихся операндов");
+            }
 
          return inputString;
+
         }
 }
