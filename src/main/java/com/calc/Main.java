@@ -16,7 +16,6 @@ public class Main {
         String stringChecked = new Validator().checkValidation(inWrite.consoleWrite());
         List<String> list = new ParsingString().parse(stringChecked);
         new ConsoleInWriteInOut().outInConsole(new ParsingString().parsing(list));
-
     }
 
 }
